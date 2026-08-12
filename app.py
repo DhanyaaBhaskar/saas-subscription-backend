@@ -419,5 +419,28 @@ def premium_content():
         "content": "This content is available only to Premium subscribers."
     }), 200
 
+with app.app_context():
+    db.create_all()
+
+    if not Plan.query.first():
+        db.session.add_all([
+            Plan(
+                name="Free",
+                price=0,
+                features=["Basic access"]
+            ),
+            Plan(
+                name="Basic",
+                price=9.99,
+                features=["Basic features", "Email support"]
+            ),
+            Plan(
+                name="Premium",
+                price=19.99,
+                features=["All features", "Priority support", "Premium content"]
+            )
+        ])
+        db.session.commit()
+
 if __name__ == "__main__":
     app.run(debug=True)
