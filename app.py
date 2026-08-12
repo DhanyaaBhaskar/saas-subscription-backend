@@ -395,9 +395,27 @@ def dashboard():
             "current_plan": user.current_plan
         }
     }), 200
+def plan_required(required_plan):
+    def decorator(function):
+        @jwt_required()
+        def wrapper(*args, **kwargs):
+            user = User.query.get(int(get_jwt_identity()))
+
+            if not user:
+                return jsonify({"message": "User not found"}), 404
+
+            if user.current_plan != required_plan:
+                return jsonify(
+                    {"message": f"{required_plan} subscription required"}
+                ), 403
+
+            return function(*args, **kwargs)
+        return wrapper
+    return decorator
+
 
 @app.route("/premium-content", methods=["GET"])
-@jwt_required()
+@plan_required("Premium")
 def premium_content():
 
     user_id = get_jwt_identity()
