@@ -1,6 +1,12 @@
 # SaaS Subscription Backend
 
 A Flask-based SaaS subscription backend with JWT authentication and subscription management.
+## Live Deployment
+
+Backend URL: https://saas-subscription-backend-neu1.onrender.com/
+
+Test plans endpoint:
+https://saas-subscription-backend-neu1.onrender.com/plans
 
 ## Features
 
