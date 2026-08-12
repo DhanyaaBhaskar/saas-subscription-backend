@@ -13,9 +13,7 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 jwt = JWTManager(app)
 
 # MySQL database connection
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "mysql+pymysql://root:root@localhost/saas_db"
-)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
